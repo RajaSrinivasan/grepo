@@ -1,12 +1,12 @@
 package version
 // Go package generator
 // File: version.h
-const buildTime = "Mon Mar 30 2020 14:27:51"
+const buildTime = "Tue May 19 2020 14:05:18"
 const versionMajor = 0
 const versionMinor = 0
 const versionBuild = 999
-const repoURL = "git@gitlab.com:projtemplates/go.git"
+const repoURL = "https://github.com/RajaSrinivasan/grepo.git"
 const branchName = "master"
-const shortCommitId = "4e98091"
-const longCommitId = "4e980910fb7765b0d99248bbd960bb073e2a72de"
+const shortCommitId = "5b23be5"
+const longCommitId = "5b23be52a732e3269fc47c87ba49f472a264cfba"
 const assignedTags = ""
