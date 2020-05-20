@@ -12,7 +12,7 @@ var diffCmd = &cobra.Command{
 	Long: `
 	foreach repo - provide a difference from the original pull
 	`,
-	Run: Push,
+	Run: Diff,
 }
 
 func init() {
