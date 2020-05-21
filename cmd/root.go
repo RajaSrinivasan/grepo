@@ -10,6 +10,7 @@ import (
 
 var cfgFile string
 var verbose bool
+var repoconfig *repo.Manifest
 
 var rootCmd = &cobra.Command{
 	Use:   "grepo",
@@ -35,5 +36,5 @@ func init() {
 
 func initConfig() {
 	repo.Verbose = verbose
-	repo.LoadConfig(cfgFile)
+	repoconfig = repo.LoadConfig(cfgFile)
 }

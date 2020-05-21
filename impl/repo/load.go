@@ -54,7 +54,7 @@ func (prjg *ProjectGroup) fixupGroup(nm string) error {
 	return nil
 }
 
-func LoadConfig(cfgfile string) {
+func LoadConfig(cfgfile string) *Manifest {
 
 	if Verbose {
 		log.Printf("Loading the config file %s", cfgfile)
@@ -72,5 +72,5 @@ func LoadConfig(cfgfile string) {
 		project.Public.Show("Public")
 		project.Private.Show("Private")
 	}
-
+	return &project
 }

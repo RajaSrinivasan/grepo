@@ -3,6 +3,7 @@ package cmd
 import (
 	"log"
 
+	"github.com/RajaSrinivasan/grepo/impl"
 	"github.com/spf13/cobra"
 )
 
@@ -26,4 +27,6 @@ func Init(cmd *cobra.Command, args []string) {
 	if verbose {
 		log.Printf("Initialize force=%v", force)
 	}
+	impl.Verbose = verbose
+	impl.Init(repoconfig, force)
 }
