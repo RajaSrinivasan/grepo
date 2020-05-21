@@ -1,17 +1,20 @@
 public:
     workarea: "/tmp/mirror"
     projects:
-      - repo: "gitlab.com/projtemplates/go.git"
-        reference: master
-        strategy: ""
+      - repoUrl: "git@gitlab.com/projtemplates/go.git"
+        reference: "master"
         path: "go/lib"
 private:
-    workarea: "/tmp/work"
-    server: "gitlab.com"
-    protocol: "git"   # git or http or https
+    workarea: "work"
+    server: "git@gitlab.com:"
     projects:
       - repo: "RajaSrinivasan/icm.git"
         path: "icm"
+        reference: "V01.06"
       - repo: "RajaSrinivasan/codex.git"
-      - repourl: "git@github.com:RajaSrinivasan/srctrace.git"
-      - repourl: "git@github.com/repotrace.git"
+        path: "codex"
+        reference: "development"
+      - repourl: "https://github.com/RajaSrinivasan/srctrace.git"
+        path: "tools/srctrace"
+      - repourl: "git@github.com:repotrace.git"
+        path: "tools/repotrace"
