@@ -1,5 +1,5 @@
 public:
-    workarea: "worklib"
+    workarea: ".worklib"
     reference: "V01.00"
     projects:
       - repourl: "git@gitlab.com:projtemplates/go.git"
@@ -7,7 +7,7 @@ public:
         path: "go/lib"
         build: "make setup all"
 private:
-    workarea: "work"
+    workarea: ".work"
     server: "git@gitlab.com:"
     reference: "tagx02"
     projects:
