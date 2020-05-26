@@ -1,12 +1,15 @@
 public:
-    workarea: "/tmp/mirror"
+    workarea: "worklib"
+    reference: "V01.00"
     projects:
-      - repoUrl: "git@gitlab.com/projtemplates/go.git"
+      - repourl: "git@gitlab.com:projtemplates/go.git"
         reference: "master"
         path: "go/lib"
+        build: "make setup all"
 private:
     workarea: "work"
     server: "git@gitlab.com:"
+    reference: "tagx02"
     projects:
       - repo: "RajaSrinivasan/icm.git"
         path: "icm"
@@ -14,6 +17,7 @@ private:
       - repo: "RajaSrinivasan/codex.git"
         path: "codex"
         reference: "development"
+        build: "make setup all"
       - repourl: "https://github.com/RajaSrinivasan/srctrace.git"
         path: "tools/srctrace"
       - repourl: "git@github.com:repotrace.git"

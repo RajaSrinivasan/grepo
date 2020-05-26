@@ -19,7 +19,7 @@ func (prj *Project) fixupProject(grp *ProjectGroup) error {
 	} else {
 		userepo = grp.Server + prj.Repo
 	}
-	prj.useRepo = userepo
+	prj.UseRepo = userepo
 
 	if len(prj.Path) < 1 {
 		log.Printf("Always provide a work area for repo %s", userepo)
@@ -27,6 +27,12 @@ func (prj *Project) fixupProject(grp *ProjectGroup) error {
 	}
 
 	prj.Path = filepath.Join(grp.Workarea, prj.Path)
+
+	if len(prj.Reference) < 1 {
+		if len(grp.Reference) > 0 {
+			prj.Reference = grp.Reference
+		}
+	}
 
 	return nil
 }

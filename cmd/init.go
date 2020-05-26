@@ -13,7 +13,8 @@ var initCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Initialize - setup the workspace",
 	Long: `
-	Create the workspaces and the directory structure
+	Create the workspaces and the directory structure.
+	Perform the clone of the repos.
 	`,
 	Run: Init,
 }
