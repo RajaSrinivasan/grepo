@@ -19,6 +19,6 @@ private:
         reference: "v0.1.0-B"
         build: "make setup all test"
       - repourl: "https://github.com/RajaSrinivasan/srctrace.git"
-        path: "tools"
+        path: "srct"
       - repourl: "git@github.com:repotrace.git"
-        path: "tools"
+        path: "repot"

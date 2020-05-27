@@ -12,7 +12,7 @@ import (
 var project Manifest
 
 func (prj *Project) fixupProject(grp *ProjectGroup) error {
-	log.Printf("Fixing up %s (%s)", prj.Repo, prj.RepoUrl)
+	//log.Printf("Fixing up %s (%s)", prj.Repo, prj.RepoUrl)
 	var userepo string
 	if len(prj.RepoUrl) > 1 {
 		userepo = prj.RepoUrl
@@ -51,7 +51,7 @@ func (prjg *ProjectGroup) fixupGroup(nm string) error {
 	prjg.Workarea = ws
 
 	for idx, _ := range prjg.Projects {
-		log.Printf("Project No : %d", idx)
+		//log.Printf("Project No : %d", idx)
 		err := (&prjg.Projects[idx]).fixupProject(prjg)
 		if err != nil {
 			log.Printf("%s", err)

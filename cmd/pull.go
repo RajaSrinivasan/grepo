@@ -8,7 +8,6 @@ import (
 )
 
 var all_groups bool
-var build bool
 
 var pullCmd = &cobra.Command{
 	Use:   "pull",
@@ -26,7 +25,6 @@ var pullCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(pullCmd)
 	pullCmd.PersistentFlags().BoolVarP(&all_groups, "all-groups", "a", false, "All project groups - public and private (default)")
-	pullCmd.PersistentFlags().BoolVarP(&build, "build", "b", false, "Build the project")
 
 }
 

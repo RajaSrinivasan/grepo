@@ -8,6 +8,7 @@ import (
 )
 
 var force bool
+var build bool
 
 var initCmd = &cobra.Command{
 	Use:   "init",
@@ -20,7 +21,8 @@ var initCmd = &cobra.Command{
 }
 
 func init() {
-	initCmd.PersistentFlags().BoolVarP(&force, "force", "f", false, "force init. Even if previously initialized.")
+	initCmd.PersistentFlags().BoolVarP(&force, "force", "f", false, "Force init. If previously initialized - wipeout.")
+	initCmd.PersistentFlags().BoolVarP(&build, "build", "b", false, "Perform initial build.")
 	rootCmd.AddCommand(initCmd)
 }
 
@@ -29,5 +31,5 @@ func Init(cmd *cobra.Command, args []string) {
 		log.Printf("Initialize force=%v", force)
 	}
 	impl.Verbose = verbose
-	impl.Init(repoconfig, force)
+	impl.Init(repoconfig, force, build)
 }
