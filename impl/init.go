@@ -11,7 +11,7 @@ import (
 
 var Verbose bool
 
-func initProjectGroup(prjg *repo.ProjectGroup, force bool, build bool, detached bool) {
+func initProjectGroup(prjg *repo.ProjectGroup, force bool, build bool, detached bool, branch string) {
 	if force {
 		err := os.RemoveAll(prjg.Workarea)
 		if err != nil {
@@ -59,6 +59,7 @@ func initProjectGroup(prjg *repo.ProjectGroup, force bool, build bool, detached 
 			result, err := cmd.CombinedOutput()
 			if err != nil {
 				log.Printf("%s\n%s", err, result)
+				continue
 			} else {
 				if Verbose {
 					log.Printf("%s", result)
@@ -72,6 +73,7 @@ func initProjectGroup(prjg *repo.ProjectGroup, force bool, build bool, detached 
 			result, err := cmd.CombinedOutput()
 			if err != nil {
 				log.Printf("%s\n%s", err, result)
+				continue
 			} else {
 				if Verbose {
 					log.Printf("%s", result)
@@ -89,6 +91,17 @@ func initProjectGroup(prjg *repo.ProjectGroup, force bool, build bool, detached 
 					}
 				}
 			}
+		}
+		if strings.Compare(branch, repo.NoneBranch) != 0 {
+			cmd := exec.Command("git", "checkout", "-b", branch)
+			if Verbose {
+				log.Printf("Executing %s", cmd.String())
+			}
+			result, err := cmd.CombinedOutput()
+			if err != nil {
+				log.Printf("%s", err)
+			}
+			log.Printf("%s", result)
 		}
 		if build {
 			if len(prj.Build) < 1 {
@@ -113,10 +126,10 @@ func initProjectGroup(prjg *repo.ProjectGroup, force bool, build bool, detached 
 	}
 }
 
-func Init(manifest *repo.Manifest, force bool, build bool) {
+func Init(manifest *repo.Manifest, force bool, build bool, branch string) {
 	if Verbose {
 		log.Printf("Initializing. Force=%v", force)
 	}
-	initProjectGroup(&manifest.Public, force, build, true)
-	initProjectGroup(&manifest.Private, force, build, false)
+	initProjectGroup(&manifest.Public, force, build, true, repo.NoneBranch)
+	initProjectGroup(&manifest.Private, force, build, false, branch)
 }

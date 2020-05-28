@@ -20,5 +20,7 @@ private:
         build: "make setup all test"
       - repourl: "https://github.com/RajaSrinivasan/srctrace.git"
         path: "srct"
+        reference: "feat_many_platforms"
+        build: "make setup all"
       - repourl: "git@github.com:repotrace.git"
         path: "repot"
