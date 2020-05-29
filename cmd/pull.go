@@ -8,16 +8,13 @@ import (
 )
 
 var all_groups bool
+var pullbuild bool
 
 var pullCmd = &cobra.Command{
 	Use:   "pull",
 	Short: "Pull for each repo",
 	Long: `
 	foreach repo - git pull
-
-	Clone option - clone the repo.
-	               Public repos - only the branch/tag and detach HEAD
-				   Private repos - clone, checkout. other branches left accessible
 	`,
 	Run: Pull,
 }
@@ -25,7 +22,7 @@ var pullCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(pullCmd)
 	pullCmd.PersistentFlags().BoolVarP(&all_groups, "all-groups", "a", false, "All project groups - public and private (default)")
-
+	pullCmd.PersistentFlags().BoolVarP(&pullbuild, "build-after", "b", false, "Perform after pull.")
 }
 
 func Pull(cmd *cobra.Command, args []string) {
@@ -33,5 +30,5 @@ func Pull(cmd *cobra.Command, args []string) {
 		log.Printf("Pull the repos")
 	}
 	impl.Verbose = verbose
-	impl.Pull(repoconfig, all_groups, build)
+	impl.Pull(repoconfig, all_groups, pullbuild)
 }

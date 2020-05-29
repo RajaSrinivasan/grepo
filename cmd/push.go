@@ -6,6 +6,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var forcePush bool
+var message string
+
 var pushCmd = &cobra.Command{
 	Use:   "push",
 	Short: "Push for each repo",
@@ -17,6 +20,8 @@ var pushCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(pushCmd)
+	pushCmd.PersistentFlags().BoolVarP(&forcePush, "force", "f", false, "Push all repositories - even if no changes identified.")
+	pushCmd.PersistentFlags().StringVarP(&message, "message", "m", "", "Commit message to use on all repositories")
 }
 
 func Push(cmd *cobra.Command, args []string) {

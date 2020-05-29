@@ -10,32 +10,38 @@ import (
 )
 
 func buildProject(prj *repo.Project) {
-	if Verbose {
-		log.Printf("Building in %s", prj.Path)
-	}
+	log.Printf("Building in %s", prj.Path)
 	if len(prj.Build) < 1 {
 		log.Printf("No build command provided. Skipping.")
+	}
+	flds := strings.Split(prj.Build, " ")
+	cmd := exec.Command(flds[0], flds[1:]...)
+	if Verbose {
+		log.Printf("Executing %s", cmd.String())
+	}
+	result, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Printf("%s", err)
+	}
+	if Verbose {
+		log.Printf("%s", result)
 	}
 }
 
 func pullProject(prj *repo.Project) {
-	if Verbose {
-		log.Printf("Pulling in %s", prj.Path)
-	}
+	log.Printf("Pulling in %s", prj.Path)
+
 	wd, _ := os.Getwd()
 	os.Chdir(prj.Path)
 	defer os.Chdir(wd)
 
-	cmd := exec.Command("git", "remote", "-v")
-	out, err := cmd.Output()
+	cmd := exec.Command("git", "pull")
+	out, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Printf("%s", err)
 	}
-	log.Printf("%s: %s", prj.Path, out)
-	if strings.Index(string(out), "not a git repository") > 0 {
-		log.Printf("%s: %s", prj.Path, out)
-		return
-	}
+	log.Printf("%s", out)
+
 }
 
 func pullProjectGroup(prjg *repo.ProjectGroup, build bool) {
@@ -57,6 +63,7 @@ func Pull(manifest *repo.Manifest, all bool, build bool) {
 	if Verbose {
 		log.Printf("Pull. All=%v Build=%v", all, build)
 	}
+
 	if all {
 		pullProjectGroup(&manifest.Public, build)
 	}
