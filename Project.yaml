@@ -1,24 +1,43 @@
 public:
-    workarea: ".worklib"
-    reference: "V01.00"
-    projects:
-      - repourl: "git@gitlab.com:projtemplates/go.git"
-        reference: "master"
-        path: "go/lib"
-        build: "make setup all"
+  workarea: "/Users/RajaSrinivasan/grepotest/pub"
+  projects:
+    - repourl: "git@gitlab.com:projtemplates/go.git"
+      reference: "master"
+      path: "go/lib"
+      build: "make setup all"
+
 private:
-    workarea: ".work"
-    server: "git@gitlab.com:"
-    reference: "tagx02"
-    projects:
-      - repo: "RajaSrinivasan/icm.git"
-        path: "icm"
-        reference: "V01.06"
-      - repo: "RajaSrinivasan/codex.git"
-        path: "codex"
-        reference: "v0.1.0-B"
-        build: "make setup all test"
-      - repourl: "https://github.com/RajaSrinivasan/srctrace.git"
-        path: "srct"
-      - repourl: "git@github.com:repotrace.git"
-        path: "repot"
+  workarea: "/Users/RajaSrinivasan/grepotest/pvt"
+  server: "git@gitlab.com:RajaSrinivasan/"
+
+  projects:
+    - repo: "random.git"
+      path: "random"
+
+    - repo:  "exec.git"
+      path: "exec"
+      build: "build.sh"
+
+    - repo: "codex.git"
+      path: "codex"
+      reference: "v0.1.0-B"
+      build: "make setup all test"
+
+    - repourl: https://github.com/RajaSrinivasan/disign.git"
+      path: "disign"
+      build: "make all"
+
+    - repourl: https://github.com/RajaSrinivasan/spm.git"
+      path: "spm"
+      build: "make all"
+
+    - repourl: "https://github.com/RajaSrinivasan/srctrace.git"
+      path: "srctrace"
+      reference: "feat_many_platforms"
+      build: "make setup all"
+
+    - repourl: "https://github.com/RajaSrinivasan/repotrace.git"
+      path: "repotrace"
+
+    - repourl: "https://github.com/RajaSrinivasan/rollpwd.git"
+      path: "rollpwd"

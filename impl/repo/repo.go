@@ -24,3 +24,5 @@ type Manifest struct {
 	Public  ProjectGroup // public. these are generally not touched by developer
 	Private ProjectGroup // repos touched by developer
 }
+
+const NoneBranch = "<none>"

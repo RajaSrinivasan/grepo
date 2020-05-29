@@ -4,11 +4,13 @@ import (
 	"log"
 
 	"github.com/RajaSrinivasan/grepo/impl"
+	"github.com/RajaSrinivasan/grepo/impl/repo"
 	"github.com/spf13/cobra"
 )
 
 var force bool
 var build bool
+var branch string
 
 var initCmd = &cobra.Command{
 	Use:   "init",
@@ -23,6 +25,7 @@ var initCmd = &cobra.Command{
 func init() {
 	initCmd.PersistentFlags().BoolVarP(&force, "force", "f", false, "Force init. If previously initialized - wipeout.")
 	initCmd.PersistentFlags().BoolVarP(&build, "build", "b", false, "Perform initial build.")
+	initCmd.PersistentFlags().StringVarP(&branch, "new-branch", "n", repo.NoneBranch, "Create a new branch upon checkout")
 	rootCmd.AddCommand(initCmd)
 }
 
@@ -31,5 +34,5 @@ func Init(cmd *cobra.Command, args []string) {
 		log.Printf("Initialize force=%v", force)
 	}
 	impl.Verbose = verbose
-	impl.Init(repoconfig, force, build)
+	impl.Init(repoconfig, force, build, branch)
 }
