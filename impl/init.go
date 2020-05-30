@@ -49,10 +49,15 @@ func initProjectGroup(prjg *repo.ProjectGroup, force bool, build bool, detached 
 			}
 		}
 		os.Chdir(prj.Path)
+		var cmd *exec.Cmd
 
 		switch detached {
 		case true:
-			cmd := exec.Command("git", "clone", prj.UseRepo, "-b", prj.Reference, ".")
+			if len(prj.Reference) < 1 {
+				cmd = exec.Command("git", "clone", prj.UseRepo, ".")
+			} else {
+				cmd = exec.Command("git", "clone", prj.UseRepo, "-b", prj.Reference, ".")
+			}
 			if Verbose {
 				log.Printf("Executing %s", cmd.String())
 			}
@@ -66,7 +71,8 @@ func initProjectGroup(prjg *repo.ProjectGroup, force bool, build bool, detached 
 				}
 			}
 		case false:
-			cmd := exec.Command("git", "clone", prj.UseRepo, ".")
+
+			cmd = exec.Command("git", "clone", prj.UseRepo, ".")
 			if Verbose {
 				log.Printf("Executing %s", cmd.String())
 			}
@@ -78,16 +84,18 @@ func initProjectGroup(prjg *repo.ProjectGroup, force bool, build bool, detached 
 				if Verbose {
 					log.Printf("%s", result)
 				}
-				cmd2 := exec.Command("git", "checkout", prj.Reference)
-				if Verbose {
-					log.Printf("Executing %s", cmd2.String())
-				}
-				result, err := cmd2.CombinedOutput()
-				if err != nil {
-					log.Printf("%s\n%s", err, result)
-				} else {
+				if len(prj.Reference) >= 1 {
+					cmd2 := exec.Command("git", "checkout", prj.Reference)
 					if Verbose {
-						log.Printf("%s", result)
+						log.Printf("Executing %s", cmd2.String())
+					}
+					result, err := cmd2.CombinedOutput()
+					if err != nil {
+						log.Printf("%s\n%s", err, result)
+					} else {
+						if Verbose {
+							log.Printf("%s", result)
+						}
 					}
 				}
 			}
