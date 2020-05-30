@@ -38,20 +38,24 @@ func (prj *Project) fixupProject(grp *ProjectGroup) error {
 }
 
 func (prjg *ProjectGroup) fixupGroup(nm string) error {
-	log.Printf("Fixing up %s", nm)
+	if Verbose {
+		log.Printf("Project group: %s", nm)
+	}
 	if len(prjg.Workarea) < 2 {
 		log.Printf("ProjGroup: %s requires a work area", nm)
 		return errors.New("No workspace provided for " + nm)
 	}
-	ws, err := filepath.Abs(prjg.Workarea)
+	projWs := os.ExpandEnv(prjg.Workarea)
+	ws, err := filepath.Abs(projWs)
 	if err != nil {
 		log.Printf("%s", err)
 		return err
 	}
 	prjg.Workarea = ws
-
+	if Verbose {
+		log.Printf("Workspace %s", prjg.Workarea)
+	}
 	for idx, _ := range prjg.Projects {
-		//log.Printf("Project No : %d", idx)
 		err := (&prjg.Projects[idx]).fixupProject(prjg)
 		if err != nil {
 			log.Printf("%s", err)

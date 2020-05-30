@@ -1,5 +1,5 @@
 public:
-  workarea: "/Users/RajaSrinivasan/grepotest/pub"
+  workarea: "$HOME/grepotest/pub"
   projects:
     - repourl: "git@gitlab.com:projtemplates/go.git"
       reference: "master"
@@ -7,7 +7,7 @@ public:
       build: "make setup all"
 
 private:
-  workarea: "/Users/RajaSrinivasan/grepotest/pvt"
+  workarea: "$HOME/grepotest/pvt"
   server: "git@gitlab.com:RajaSrinivasan/"
 
   projects:
@@ -23,11 +23,11 @@ private:
       reference: "v0.1.0-B"
       build: "make setup all test"
 
-    - repourl: https://github.com/RajaSrinivasan/disign.git"
+    - repourl: "https://github.com/RajaSrinivasan/disign.git"
       path: "disign"
       build: "make all"
 
-    - repourl: https://github.com/RajaSrinivasan/spm.git"
+    - repourl: "https://github.com/RajaSrinivasan/spm.git"
       path: "spm"
       build: "make all"
 
