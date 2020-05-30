@@ -18,7 +18,7 @@ var rootCmd = &cobra.Command{
 	Long: `
 	grepo supports a project that comprises different repositories.
 	`,
-	Version: "v0.0.0",
+	Version: "v0.1-1",
 }
 
 func Execute() {
