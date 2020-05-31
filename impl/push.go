@@ -5,11 +5,12 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/RajaSrinivasan/grepo/impl/repo"
 )
 
-func pushProjectGroup(prjg *repo.ProjectGroup, message string, force bool) {
+func pushProjectGroup(prjg *repo.ProjectGroup, message string, tag string, force bool) {
 	wd, _ := os.Getwd()
 	defer os.Chdir(wd)
 	for _, prj := range prjg.Projects {
@@ -47,13 +48,33 @@ func pushProjectGroup(prjg *repo.ProjectGroup, message string, force bool) {
 			log.Printf("%s", err)
 		}
 		log.Printf("%s", result)
+		if strings.Compare(tag, repo.NoneTag) != 0 {
+			tagcmd := exec.Command("git", "tag", tag)
+			if Verbose {
+				log.Printf("Executing %s", tagcmd.String())
+			}
+			result, err := tagcmd.CombinedOutput()
+			if err != nil {
+				log.Printf("%s", err)
+			}
+			log.Printf("%s", result)
+			pushtagscmd := exec.Command("git", "push", "--tags")
+			if Verbose {
+				log.Printf("Executing %s", pushtagscmd.String())
+			}
+			result, err = pushtagscmd.CombinedOutput()
+			if err != nil {
+				log.Printf("%s", err)
+			}
+			log.Printf("%s", result)
+		}
 	}
 }
 
-func Push(manifest *repo.Manifest, message string, force bool) {
+func Push(manifest *repo.Manifest, message string, tag string, force bool) {
 	if Verbose {
 		log.Printf("Status")
 	}
 
-	pushProjectGroup(&manifest.Private, message, force)
+	pushProjectGroup(&manifest.Private, message, tag, force)
 }

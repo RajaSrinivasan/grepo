@@ -26,3 +26,4 @@ type Manifest struct {
 }
 
 const NoneBranch = "<none>"
+const NoneTag = "<none>"
