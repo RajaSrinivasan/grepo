@@ -24,7 +24,7 @@ func pushProjectGroup(prjg *repo.ProjectGroup, message string, tag string, force
 			continue
 		}
 		if len(result) < 1 {
-			log.Printf("No changes to commit. Skipping")
+			log.Printf("No changes to commit.")
 			if force {
 				log.Printf("Will commit anyway.")
 			} else {
@@ -37,17 +37,31 @@ func pushProjectGroup(prjg *repo.ProjectGroup, message string, tag string, force
 
 		result, err = cmd.CombinedOutput()
 		if err != nil {
+			if strings.Index(string(result), "working tree clean") > 0 {
+				break
+			}
 			log.Printf("%s", err)
-			continue
 		}
 		log.Printf("%s", result)
 
-		pushcmd := exec.Command("git", "push")
+		brcmd := exec.Command("git", "rev-parse", "--abbrev-ref", "HEAD")
+		result, err = brcmd.CombinedOutput()
+		if err != nil {
+			log.Printf("%s", err)
+		}
+		curbr := string(result)
+		var pushcmd *exec.Cmd
+		if strings.Compare(prj.Reference, curbr) == 0 {
+			pushcmd = exec.Command("git", "push")
+		} else {
+			pushcmd = exec.Command("git", "push", "--set-upstream", "origin", curbr)
+		}
 		result, err = pushcmd.CombinedOutput()
 		if err != nil {
 			log.Printf("%s", err)
 		}
 		log.Printf("%s", result)
+
 		if strings.Compare(tag, repo.NoneTag) != 0 {
 			tagcmd := exec.Command("git", "tag", tag)
 			if Verbose {

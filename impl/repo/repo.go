@@ -6,7 +6,7 @@ type Project struct {
 	RepoUrl   string // This is the complete url including protocol. If not specified group spec
 	Repo      string // One of repourl or repo can be specified. repo => rest from group spec
 	UseRepo   string // final derivation which is actually used
-	Reference string // Branch, tag or commit id. if not specified the "default" as setup in the repo
+	Reference string // Branch, tag or commit id. if not specified the "default" as setup in the repo to read
 	Path      string // The folder where the checkout is performed under the Work area
 	Build     string // Build Command. Execute this shell command upon pull
 }
